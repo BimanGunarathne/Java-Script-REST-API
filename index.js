@@ -1,23 +1,24 @@
 // Bring in the express server and create application
 let express = require('express');
 let app = express();
+let cakeRepo = require("./repos/cakeRepo");
 
 // Use the express Router object
 let router = express.Router();
-let cakes = [
-    { "id": 1, "name": "Coffe" },
-    { "id": 2, "name": "Ribon" },
-    { "id": 3, "name": "Butter" }
-]
+
 
 // Create GET to return a list of all cakes
 router.get('/', function(req, res, next) {
-    res.status(200).json({
-        status: 200,
-        statusText: "OK",
-        message: "All cakes retrieved.",
-        data: cakes
-    });
+    cakeRepo.get(function(data) {
+        res.status(200).json({
+            status: 200,
+            statusText: "OK",
+            message: "All cakes retrieved.",
+            data
+        });
+    }, function(err) {
+        next(err);
+    })
 });
 
 // Configure router so all routes are prefixed with /api/v1
