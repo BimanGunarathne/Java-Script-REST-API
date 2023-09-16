@@ -130,6 +130,35 @@ router.delete('/:id', function(req, res, next) {
                 }
             })
         }
+    }, function(err) {
+        next(err);
+    })
+})
+
+router.patch('/:id', function(req, res, next) {
+    cakeRepo.getByID(req.params.id, function(data) {
+        if (data) {
+            cakeRepo.update(req.body, req.params.id, function(data) {
+                res.status(200).json({
+                    status: 200,
+                    statusText: "OK",
+                    message: "Cake '" + req.params.id + "' is patched.",
+                    data: data
+                })
+            })
+        } else {
+            res.status(404).json({
+                status: 404,
+                statusText: "Not Found",
+                message: "The cake '" + req.params.id + "' could not be found",
+                error: {
+                    code: "NOT_FOUND",
+                    message: "The cake '" + req.params.id + "' could not be found."
+                }
+            })
+        }
+    }, function(err) {
+        next(err);
     })
 })
 
