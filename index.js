@@ -2,6 +2,7 @@
 let express = require('express');
 let app = express();
 let cakeRepo = require("./repos/cakeRepo");
+let erroerHelper = require('./helpers/errorHelpers');
 
 // Use the express Router object
 let router = express.Router();
@@ -164,31 +165,12 @@ router.patch('/:id', function(req, res, next) {
 
 // Configure router so all routes are prefixed with /api/v1
 app.use('/api/', router);
-
-function errorBuilder(err) {
-    return {
-        status: 500,
-        statusText: "Internal Server Error",
-        message: err.message,
-        error: {
-            errno: err.errno,
-            call: err.syscall,
-            code: "INTERNAL_SERVER_ERROR",
-            message: err.message
-        }
-    }
-}
-
-// Configure exception logger
-app.use(function(err, req, res, next) {
-    console.log(errorBuilder(err));
-    next(err);
-})
-
-// Configure exception middleware last
-app.use(function(err, req, res, next) {
-    res.status(500).json(errorBuilder(err))
-})
+// Configure exception logger to console
+app.use(erroerHelper.logErrorsToConsole);
+// Configure client error handler
+app.use(erroerHelper.clientErrorHandler);
+// Configure catch-all exception middleware lsat
+app.use(erroerHelper.errorHandler);
 
 // Create server to listen on port 5000
 var server = app.listen(5000, function() {
