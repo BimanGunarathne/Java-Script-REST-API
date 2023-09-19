@@ -3,12 +3,16 @@ let express = require('express');
 let app = express();
 let cakeRepo = require("./repos/cakeRepo");
 let erroerHelper = require('./helpers/errorHelpers');
+let cors = require('cors');
 
 // Use the express Router object
 let router = express.Router();
 
 // Configure middleware to support JSON data parsing in request object
 app.use(express.json());
+
+// Configure CORS
+app.use(cors());
 
 // Create GET to return a list of all cakes
 router.get('/', function(req, res, next) {

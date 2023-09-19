@@ -1,5 +1,5 @@
 let fs = require('fs');
-const FILE_NAME = "./assets/cakes2.json";
+const FILE_NAME = "./assets/cakes.json";
 
 let cakeRepo = {
     get: function(resolve, reject) {
