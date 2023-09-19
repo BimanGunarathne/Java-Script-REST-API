@@ -167,6 +167,8 @@ router.patch('/:id', function(req, res, next) {
 app.use('/api/', router);
 // Configure exception logger to console
 app.use(erroerHelper.logErrorsToConsole);
+// Configure exception logger to file
+app.use(erroerHelper.logErrorsToFile);
 // Configure client error handler
 app.use(erroerHelper.clientErrorHandler);
 // Configure catch-all exception middleware lsat

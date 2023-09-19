@@ -1,0 +1,4 @@
+********************************************************************************
+Date/Time: 9/19/2023
+Exception info: {"status":500,"statusText":"Internal Server Error","message":"erroerHelpers is not defined","error":{"code":"INTERNAL_SERVER_ERROR","message":"erroerHelpers is not defined"},"requestInfo":{"hostname":"localhost","path":"/api/"}}
+********************************************************************************
